@@ -1,8 +1,8 @@
 describe('Teste de Login', () => {
   it('Login com sucesso', () => {
     cy.visit('https://moodle.utfpr.edu.br/my/courses.php')
-    cy.get('#username').type('a2272717');
-    cy.get('#password').type('Guilherme.15');
+    cy.get('#username').type('a_+_seu_ra');
+    cy.get('#password').type('sua_senha');
     cy.get('#loginbtn').click();
     cy.get('#topofscroll').should('be.visible');
   })
@@ -19,8 +19,8 @@ describe('Teste de Login', () => {
 describe('Teste Nota no Curso', () => {
   it('Verificando a nota em um curso sem nota atribuída', function () {
     cy.visit('https://moodle.utfpr.edu.br/my/courses.php')
-    cy.get('#username').type('a2272717');
-    cy.get('#password').type('Guilherme.15');
+    cy.get('#username').type('a_+_seu_ra');
+    cy.get('#password').type('sua_senha');
     cy.get('#loginbtn').click();
     cy.get('#user-menu-toggle').click();
     cy.get('#carousel-item-main a[href="https://moodle.utfpr.edu.br/grade/report/overview/index.php"]').click({ force: true });
@@ -31,8 +31,8 @@ describe('Teste Nota no Curso', () => {
 
   it('Verificando a nota em um curso com nota atribuída', function () {
     cy.visit('https://moodle.utfpr.edu.br/my/courses.php')
-    cy.get('#username').type('a2272717');
-    cy.get('#password').type('Guilherme.15');
+    cy.get('#username').type('a_+_seu_ra');
+    cy.get('#password').type('sua_senha');
     cy.get('#loginbtn').click();
     cy.get('#user-menu-toggle').click();
     cy.get('#carousel-item-main a[href="https://moodle.utfpr.edu.br/grade/report/overview/index.php"]').click({ force: true });
