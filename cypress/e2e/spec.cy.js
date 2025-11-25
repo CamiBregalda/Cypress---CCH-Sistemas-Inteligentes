@@ -13,7 +13,7 @@ describe('Teste de Login', () => {
     cy.get('#loginbtn').click();
     cy.get('#region-main div.alert').should('have.text', 'Nome de usuário ou senha errados. Por favor tente outra vez.')
   })
-  
+
 });
 
 describe('Teste Nota no Curso', () => {
@@ -43,7 +43,7 @@ describe('Teste Nota no Curso', () => {
 });
 
 describe('Teste de acesso a um fórum', () => {
-  it('Acessando um fórum', function() {
+  it('Acessando um fórum', function () {
     cy.visit('https://moodle.utfpr.edu.br/my/courses.php')
     cy.get('#username').type('a_+_seu_ra');
     cy.get('#password').type('sua_senha');
@@ -86,4 +86,74 @@ describe('Teste Acessando Curso', () => {
     cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/view.php?id=1463"]').click();
     cy.get('#sectionid-11967-title a').should('have.text', 'Sistemas Inteligentes Aplicados (SI27S)');
   });
+});
+
+describe('Teste de acesso a documentação', () => {
+  it('acessando documentação com sucesso', () => {
+    cy.visit('https://moodle.utfpr.edu.br/login/index.php')
+    cy.get('#username').click();
+    cy.get('#username').type('a_+_seu_ra');
+    cy.get('#password').click();
+    cy.get('#password').type('sua_senha');
+    cy.get('#loginbtn').click();
+
+    cy.get('#course-info-container-1457-4 span.multiline span:nth-child(2)').click();
+    cy.get('#module-1982600 a.aalink').click();
+
+    cy.url().should('include', 'pluginfile.php');
+    cy.url().should('include', '.pdf')
+  })
+
+  it('acessando documentação com falha', () => {
+    cy.visit('https://moodle.utfpr.edu.br/login/index.php')
+    cy.get('#username').click();
+    cy.get('#username').type('a_+_seu_ra');
+    cy.get('#password').click();
+    cy.get('#password').type('sua_senha');
+    cy.get('#loginbtn').click();
+
+    cy.get('#course-info-container-1457-4 span.multiline span:nth-child(2)').click();
+    cy.get('#module-1982600 a.aalink').click();
+
+    cy.get('#module-9999999 a.aalink').should('not.exist')
+  })
+});
+
+describe('Teste de envio de atividade', () => {
+  it.only('atividade enviada com sucesso', () => {
+    cy.visit('https://moodle.utfpr.edu.br/login/index.php')
+    cy.get('#username').click();
+    cy.get('#username').type('a_seu_ra', { delay: 100 });
+    cy.get('#password').click();
+    cy.get('#password').type('sua_senha', { delay: 100 });
+    cy.get('#loginbtn').click();
+
+    cy.get('#course-info-container-1457-4 span.multiline span:nth-child(2)').click();
+    cy.get('#module-1982601 a.aalink').click();
+    cy.get('#region-main button.btn').click();
+    cy.get('.dndupload-target').selectFile(
+      `cypress/fixtures/ExemploRelatório.docx`,
+      { action: 'drag-drop', force: true }
+    )
+
+    cy.get('[name="submitbutton"]').click();
+    cy.contains('Enviado para avaliação').should('be.visible')
+
+  })
+
+  it('atividade enviada sem sucesso', () => {
+    cy.visit('https://moodle.utfpr.edu.br/login/index.php')
+    cy.get('#username').click();
+    cy.get('#username').type('a_+_seu_ra');
+    cy.get('#password').click();
+    cy.get('#password').type('sua_senha');
+    cy.get('#loginbtn').click();
+
+    cy.get('#course-info-container-1457-4 span.multiline span:nth-child(2)').click();
+    cy.get('#module-1982601 a.aalink').click();
+    cy.get('#region-main button.btn').click();
+    cy.get('[name="submitbutton"]').click();
+    cy.contains('Sem submissões').should('be.visible')
+
+  })
 });
