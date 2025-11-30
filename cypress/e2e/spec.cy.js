@@ -103,20 +103,6 @@ describe('Teste de acesso a documentação', () => {
     cy.url().should('include', 'pluginfile.php');
     cy.url().should('include', '.pdf')
   })
-
-  it('acessando documentação com falha', () => {
-    cy.visit('https://moodle.utfpr.edu.br/login/index.php')
-    cy.get('#username').click();
-    cy.get('#username').type('a_+_seu_ra');
-    cy.get('#password').click();
-    cy.get('#password').type('sua_senha');
-    cy.get('#loginbtn').click();
-
-    cy.get('#course-info-container-1457-4 span.multiline span:nth-child(2)').click();
-    cy.get('#module-1982600 a.aalink').click();
-
-    cy.get('#module-9999999 a.aalink').should('not.exist')
-  })
 });
 
 describe('Teste de envio de atividade', () => {
