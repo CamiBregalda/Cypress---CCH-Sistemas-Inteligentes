@@ -70,22 +70,22 @@ describe('Teste Acessando Curso', () => {
     cy.get('[name="enrolpassword"]').type('SI27S');
     cy.get('[name="submitbutton"]').click();
     cy.get('#yui_3_18_1_1_1764026911824_241').should('have.text', '\n    Você está inscrito no curso.\n    \n        ×\n        Ignorar essa notificação\n    \n ');
-    cy.get('#sectionid-11967-title a').should('have.text', 'Sistemas Inteligentes Aplicados (SI27S)');
+     cy.get('h1').should('have.text', 'Sistemas Inteligentes Aplicados');
   });
 
-  it('Acessando um curso já cadastrado', function() {
-    cy.visit('https://moodle.utfpr.edu.br/login/index.php')    
-    cy.get('#username').type('a_+_seu_ra');
-    cy.get('#password').type('sua_senha');
-    cy.get('#loginbtn').click();
-    cy.get('#page-wrapper a[role="menuitem"][href="https://moodle.utfpr.edu.br/?redirect=0"]').click();
-    cy.get('#frontpage-category-names a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=10"]').click();
-    cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=373"]').click();
-    cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=378"]').click();
-    cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=441"]').click();
-    cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/view.php?id=1463"]').click();
-    cy.get('#sectionid-11967-title a').should('have.text', 'Sistemas Inteligentes Aplicados (SI27S)');
-  });
+it('Acessando um curso já cadastrado', function () {
+  cy.visit('https://moodle.utfpr.edu.br/login/index.php')
+  cy.get('#username').type('a_+_seu_ra');
+  cy.get('#password').type('sua_senha');
+  cy.get('#loginbtn').click();
+  cy.get('#page-wrapper a[role="menuitem"][href="https://moodle.utfpr.edu.br/?redirect=0"]').click();
+  cy.get('#frontpage-category-names a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=10"]').click();
+  cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=373"]').click();
+  cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=378"]').click();
+  cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/index.php?categoryid=441"]').click();
+  cy.get('#region-main a[href="https://moodle.utfpr.edu.br/course/view.php?id=1463"]').click();
+  cy.get('h1').should('have.text', 'Sistemas Inteligentes Aplicados');
+});
 });
 
 describe('Teste de acesso a documentação', () => {
